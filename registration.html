@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Registration — Simple</title>
+  <style>
+    /* Simple, clean styling */
+
+    *{
+        margin:0px;
+        padding: 0px;
+        box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f5f9;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      max-width: 400px;
+    }
+
+    form {
+      background: white;
+      max-width: 480px;
+      width: 100%;
+      padding: 40px;
+      padding: 25px 30px;
+      border-radius: 8px;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #1e3a5f;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+      font-size: 0.95rem;
+    }
+
+    .required {
+      color: #c0392b;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #b0c4de;
+      border-radius: 5px;
+      margin-bottom: 5px;
+      box-sizing: border-box;
+    }
+
+    input:focus,
+    select:focus {
+      outline: 2px solid #3a7ca5;
+      border-color: #3a7ca5;
+    }
+
+    /* Red border for invalid fields — but only after user types something */
+    input:invalid:not(:placeholder-shown),
+    select:invalid {
+      border-color: #c0392b;
+      background-color: #fff6f6;
+    }
+
+    /* Error message — hidden by default, shown when field is invalid */
+    .error {
+      color: #c0392b;
+      font-size: 0.85rem;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    input:invalid:not(:placeholder-shown) ~ .error,
+    select:invalid ~ .error {
+      display: block;
+    }
+
+    /* Hide error once the field becomes valid */
+    input:valid ~ .error,
+    select:valid ~ .error {
+      display: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #1e5f7a;
+      color: white;
+      font-size: 1.05rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    button:hover {
+      background: #164a5e;
+    }
+
+    .note {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #555;
+      background: #f0f4f8;
+      padding: 10px;
+      border-radius: 5px;
+      border-left: 4px solid #3a7ca5;
+    }
+
+    .field-group {
+      margin-bottom: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <form action="#" method="post" id="regForm">
+    <h1>Course Registration</h1>
+
+    <!-- NAME -->
+    <div class="field-group">
+      <label for="name">Full Name <span class="required">*</span></label>
+      <input 
+        type="text" 
+        id="name" 
+        name="name" 
+        placeholder="e.g. Mwaba John "
+        required 
+        minlength="2"
+      >
+      <div class="error">Please enter your full name (at least 2 characters).</div>
+    </div>
+
+    <!-- STUDENT ID -->
+    <div class="field-group">
+      <label for="studentId">Student ID <span class="required">*</span></label>
+      <input 
+        type="text" 
+        id="studentId" 
+        name="studentId" 
+        placeholder="e.g. STU-2025-001" 
+        required 
+        pattern="[A-Za-z]{3}-\d{4}-\d{3}"
+        title="Format: 3 letters, hyphen, 4 digits, hyphen, 3 digits (e.g. STU-2025-001)"
+      >
+      <div class="error">Use format: 3 letters, hyphen, 4 digits, hyphen, 3 digits (e.g. STU-2025-001).</div>
+    </div>
+
+    <!-- PROGRAMME -->
+    <div class="field-group">
+      <label for="programme">Programme <span class="required">*</span></label>
+      <select id="programme" name="programme" required>
+        <option value="" disabled selected>— Select a programme —</option>
+        <option value="CS">Computer Science</option>
+        <option value="DS">Data Science</option>
+        <option value="EE">Electrical Engineering</option>
+        <option value="BA">Business Administration</option>
+      </select>
+      <div class="error">Please choose a programme.</div>
+    </div>
+
+    <!-- COURSE -->
+    <div class="field-group">
+      <label for="course">Course <span class="required">*</span></label>
+      <select id="course" name="course" required>
+        <option value="" disabled selected>— Select a course —</option>
+        <option value="CS101">CS101 – Intro to Programming</option>
+        <option value="CS205">CS205 – Data Structures</option>
+        <option value="DS501">DS501 – Machine Learning</option>
+        <option value="EE210">EE210 – Circuit Analysis</option>
+      </select>
+      <div class="error">Please select a course.</div>
+    </div>
+
+    <!-- SUBMIT -->
+    <button type="submit">Submit Registration</button>
+
+  </form>
+
+  <script>
+    // Simple confirmation on valid submit
+    document.getElementById('regForm').addEventListener('submit', function(e) {
+      if (!this.checkValidity()) {
+        // Let the browser show its native messages + our custom CSS messages
+        return;
+      }
+      e.preventDefault(); // stop real submission for this demo
+      alert('✅ Form is valid! Server would now receive the data.');
+      // this.reset(); // optional: clear form
+    });
+  </script>
+
+</body>
+</html>
